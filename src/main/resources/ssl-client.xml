@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<property>
+<name>ssl.client.truststore.type</name>
+<value>jks</value>
+</property>
+<property>
+<name>ssl.client.truststore.password</name>
+<value>d2NjX2NyeXB0ATQxNDU1MzVGNDM0MjQzOzQzMzEzMjMyMzY0NjMwMzkzMjM2NDM0NTQxMzQzNTM5MzM0NjM0NDYzMjM3NDY0NjQ0MzkzNTMwMzIzNDQzMzgzNjQyMzIzODMwNDU0MzMxNDYzNTM1Mzk0NTM4MzIzMjQyMzI0MjQ2NDYzNTQ0MzIzNDMwMzczMDMyMzMzNDM1OzszMjM1MzAzMDtERjhGNzI1MkNCNTRGOTBBMjM0QUNDMkFDNUM0NTVBQzs3QjMyRjdGMTRFNTI2MEM2OzM0MzQzNTMyNjE2NTMwNjYyRDMxMzkzMDMxMkQzNDM0MzQzODJENjIzNzMzNjEyRDYxNjE2MjM2NjYzMjMwMzEzOTYyMzkzMDs</value>
+</property>
+<property>
+<name>ssl.client.truststore.reload.interval</name>
+<value>10000</value>
+</property>
+<property>
+<name>ssl.client.password.encrypted</name>
+<value>true</value>
+</property>
+</configuration>
