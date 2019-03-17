@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 
 import scala.io.Source
 
-object MoveFile {
+object Files {
   val logger = LoggerFactory.getLogger(this.getClass)
   /**
     * 修改文件全路径名
@@ -80,12 +80,3 @@ object MoveFile {
 
 }
 
-object Test extends App{
-//  println(MoveFile.getFileName("D:\\myjava\\Hello.java"))
-//MoveFile.copyFile("D:\\myjava\\very.log","D:\\")
-println(Source.fromFile("D:\\myjava\\very.log").codec)
-
-
-
-
-}
