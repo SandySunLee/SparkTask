@@ -47,11 +47,6 @@ object Dates {
     */
   val defaultFormat = new SimpleDateFormat(DATE_TIME_PATTERN)
 
-  val DAY = Calendar.DAY_OF_YEAR
-  val MONTH = Calendar.MONTH
-  val YEAR = Calendar.YEAR
-  val MINUTE = Calendar.MINUTE
-
   /**
     * 获取当前日期时间
     *
@@ -166,11 +161,77 @@ object Dates {
     parseDate(date2)
   }
 
+  /**
+    * 获取当月第一天的日期
+    * @param date
+    * @return
+    */
+  def getMonthFirstDay(date:String):String={
+    val date1=parseDate(date).split("\\D")
+    date1(0)+"-"+date1(1)+"-01"+" "+date1(3)+":"+date1(4)+":"+date1(5)
+  }
+
+  /**
+    * 获取当年第一天的日期
+    * @param date
+    * @return
+    */
+  def getYearFirstDay(date:String):String={
+    val date1=parseDate(date).split("\\D")
+    date1(0)+"-01-01"+" "+date1(3)+":"+date1(4)+":"+date1(5)
+  }
+
+  /**
+    * 获取当月最后一天的日期
+    * @param date
+    * @return
+    */
+  def getMonthLastDay(date:String):String={
+    val date1=parseDate(date)
+    val calendar=Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    val day=calendar.getActualMaximum(Calendar.DATE)
+    val date2=date1.split("\\D")
+    date2(0)+"-"+date2(1)+"-"+day+" "+date2(3)+":"+date2(4)+":"+date2(5)
+  }
+
+  /**
+    * 获取当年最后一天的日期
+    * @param date
+    * @return
+    */
+  def getYearLastDay(date:String):String={
+    val date1=parseDate(date).split("\\D")
+    date1(0)+"-12-31 "+date1(3)+":"+date1(4)+":"+date1(5)
+  }
+
+  /**
+    * 比较两个日期相差的天数
+    * @param date1
+    * @param date2
+    * @return
+    */
+  def compare(date1:String,date2:String)={
+    (defaultFormat.parse(parseDate(date1)).getTime-defaultFormat.parse(parseDate(date2)).getTime).toDouble/MILLISECONDS_DAY
+  }
+
+  /**
+    * 某日期加/减多少天的日期
+    * @param date
+    * @param day
+    * @return
+    */
+  def add(date: String,day:Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2=date1(0)+"-"+date1(1)+"-"+(date1(2).toInt+day)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    parseDate(date2)
+  }
+
 }
 
 
 object Test extends App {
-  println(Dates.parseDate("19020229"))
+  println(Dates.add("20181222020312",-1))
 }
 
 
