@@ -22,6 +22,15 @@ object ThreadUtil {
   }
 
   /**
+    * 执行shell命令
+    * @param command
+    * @return
+    */
+  def exeShell1(command:String):Int={
+    (command).!
+  }
+
+  /**
     * 对文件赋权
     * @param file
     * @return
