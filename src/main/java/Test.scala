@@ -1,7 +1,9 @@
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Date
 
+import com.cpic.utils.Files
 import org.apache.spark.{SparkConf, SparkContext}
 import org.slf4j.LoggerFactory
 
@@ -10,18 +12,23 @@ import scala.io.Source
 import scala.actors.Actor
 import scala.util.control.Breaks._
 
-class Test
+
 
 object Test extends App {
   val logger = LoggerFactory.getLogger(this.getClass)
+  val files=Files.getAllFiles(new File("D:\\myjava"))
+  for(file <- files){
+    println(file)
+  }
+
   //异步执行
   //  MyActor1.start()
   //  MyActor2.start()
-  val actor = new YourActor
-  actor.start()
-  actor ! "start"
-  actor ! "stop"
-  logger.info("消息发送完成！")
+//  val actor = new YourActor
+//  actor.start()
+//  actor ! "start"
+//  actor ! "stop"
+//  logger.info("消息发送完成！")
 }
 
 

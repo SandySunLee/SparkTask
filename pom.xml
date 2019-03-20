@@ -168,6 +168,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.8</version>
         </dependency>
+        <!-- java监控 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
         <!-- 流式计算 -->
         <dependency>
             <groupId>redis.clients</groupId>

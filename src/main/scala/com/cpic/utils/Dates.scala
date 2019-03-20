@@ -221,9 +221,33 @@ object Dates {
     * @param day
     * @return
     */
-  def add(date: String,day:Int): String = {
+  def addDay(date: String,day:Int): String = {
     val date1 = parseDate(date).split("\\D")
     var date2=date1(0)+"-"+date1(1)+"-"+(date1(2).toInt+day)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    parseDate(date2)
+  }
+
+  /**
+    * 某日期加/减多少月的日期
+    * @param date
+    * @param month
+    * @return
+    */
+  def addMonth(date: String,month:Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2=date1(0)+"-"+(date1(1).toInt+month)+"-"+date1(2)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    parseDate(date2)
+  }
+
+  /**
+    * 某日期加/减多少年的日期
+    * @param date
+    * @param month
+    * @return
+    */
+  def addYear(date: String,year:Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2=(date1(0).toInt+year)+"-"+date1(1)+"-"+date1(2)+" "+date1(3)+":"+date1(4)+":"+date1(5)
     parseDate(date2)
   }
 
@@ -231,7 +255,7 @@ object Dates {
 
 
 object Test extends App {
-  println(Dates.add("20181222020312",-1))
+  println(Dates.addYear("20181222020312.12",1))
 }
 
 
