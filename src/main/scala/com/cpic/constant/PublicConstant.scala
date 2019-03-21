@@ -26,6 +26,9 @@ object PublicConstant {
   val index=properties.getProperty("index")//指标层加载的脚本名称
   val report=properties.getProperty("report")//接口层加载的脚本名称
   val readuser:String=properties.getProperty("readuser")//只读账号用户名
+  val zookeeperips=properties.getProperty("zookeeperips")//zookeeperIP
+  val zkport=properties.getProperty("zkport")//zookeeperPort
+  val hivePrincipal=properties.getProperty("hivePrincipal")//登录hive验证kerberos的principal
 
   logger.info(s"主目录路径 ${idsrpt_home}")
   logger.info(s"工作库名   ${mydb} ")
@@ -40,5 +43,7 @@ object PublicConstant {
   logger.info(s"指标层加载的脚本名称   ${index} ")
   logger.info(s"接口层加载的脚本名称   ${report} ")
   logger.info(s"只读账号用户名   ${readuser} ")
-
+  logger.info(s"zookeeperIP地址   ${zookeeperips} ")
+  logger.info(s"zookeeper端口   ${zkport} ")
+  logger.info(s"登录hive验证kerberos的principal   ${hivePrincipal} ")
 }

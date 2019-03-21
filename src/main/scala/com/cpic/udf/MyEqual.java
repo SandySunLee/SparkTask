@@ -13,7 +13,7 @@ public class MyEqual extends UDF {
 		if(newArg1.equals("") && newArg1.equals(newArg2 )){
 			return false;
 		}else{
-			
+
 		} return newArg1.equals(newArg2 );
 		
 	}

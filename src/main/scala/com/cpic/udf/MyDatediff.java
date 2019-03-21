@@ -7,6 +7,9 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 import com.cpic.utils.DateUtils;
 import com.cpic.utils.PublicUtil;
 
+/**
+ * 比较两个日期的差异
+ */
 public class MyDatediff  extends UDF {
 	public String evaluate(String arg1, String arg2) {
 		Long start=System.currentTimeMillis();

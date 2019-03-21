@@ -254,9 +254,6 @@ object Dates {
 }
 
 
-object Test extends App {
-  println(Dates.addYear("20181222020312.12",1))
-}
 
 
 

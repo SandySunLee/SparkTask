@@ -5,11 +5,14 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 import com.cpic.utils.DateUtils;
 import com.cpic.utils.PublicUtil;
 
+/**
+ * 比较两个日期的差值
+ */
 public class MyDateTrunc extends UDF {
 	public String evaluate(String arg1, String arg2){
 		String newArg1 = PublicUtil.nvlString(arg1).trim();
 		String newArg2 = PublicUtil.nvlString(arg2).trim();
-		if(PublicUtil.nvl(newArg1) ||PublicUtil.nvl(newArg2)){
+		if(PublicUtil.nvl(newArg1) || PublicUtil.nvl(newArg2)){
 			return "";
 		}
 		try {
