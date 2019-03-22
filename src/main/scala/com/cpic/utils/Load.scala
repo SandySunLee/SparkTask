@@ -44,6 +44,14 @@ object Load extends App{
     conf.set("spark.sql.autoBroadcastJoinThreshold","20971520")
     conf
   }
+
+  /**
+    * 普通的sparkconf
+    * @return
+    */
+  def loadConf={
+    new SparkConf()
+  }
   /**
     * 获取SparkContext
     * @param conf

@@ -1,4 +1,4 @@
-package com.cpic.udf;
+package com.cpic.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

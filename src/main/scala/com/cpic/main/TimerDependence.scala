@@ -6,7 +6,7 @@ import scala.collection.mutable
 import scala.xml.XML
 
 /**
-  * 定时启动日报、月报脚本
+  * 根据自定义xml文件执行流程
   */
 object TimerDependence {
   val waitOutputs = new mutable.HashSet[String]

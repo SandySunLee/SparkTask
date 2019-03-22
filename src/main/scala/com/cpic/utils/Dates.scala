@@ -97,15 +97,15 @@ object Dates {
         } else if (pre.length == 6) {
           result = ("00" + pre(0)).reverse.substring(0, 4).reverse + "-" + ("0" + pre(1)).reverse.substring(0, 2).reverse + "-" + ("0" + pre(2)).reverse.substring(0, 2).reverse + " " +
             ("0" + pre(3)).reverse.substring(0, 2).reverse + ":" + ("0" + pre(4)).reverse.substring(0, 2).reverse + ":" + ("0" + pre(5)).reverse.substring(0, 2).reverse
-        } else if(pre.length == 1){
-          if(pre(0).length==14){
-            result=pre(0).substring(0,4)+"-"+pre(0).substring(4,6)+"-"+pre(0).substring(6,8)+" "+pre(0).substring(8,10)+":"+pre(0).substring(10,12)+":"+pre(0).substring(12,14)
-          }else if(pre(0).length==8){
-            result=pre(0).substring(0,4)+"-"+pre(0).substring(4,6)+"-"+pre(0).substring(6,8)+" 00:00:00"
-          }else{
+        } else if (pre.length == 1) {
+          if (pre(0).length == 14) {
+            result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " " + pre(0).substring(8, 10) + ":" + pre(0).substring(10, 12) + ":" + pre(0).substring(12, 14)
+          } else if (pre(0).length == 8) {
+            result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " 00:00:00"
+          } else {
             logger.error("日期格式异常")
           }
-        }else {
+        } else {
           logger.error("日期格式异常")
         }
       } else {
@@ -115,15 +115,15 @@ object Dates {
         } else if (pre.length == 6) {
           result = ("00" + pre(0)).reverse.substring(0, 4).reverse + "-" + ("0" + pre(1)).reverse.substring(0, 2).reverse + "-" + ("0" + pre(2)).reverse.substring(0, 2).reverse + " " +
             ("0" + pre(3)).reverse.substring(0, 2).reverse + ":" + ("0" + pre(4)).reverse.substring(0, 2).reverse + ":" + ("0" + pre(5)).reverse.substring(0, 2).reverse
-        } else if(pre.length == 1){
-          if(pre(0).length==14){
-            result=pre(0).substring(0,4)+"-"+pre(0).substring(4,6)+"-"+pre(0).substring(6,8)+" "+pre(0).substring(8,10)+":"+pre(0).substring(10,12)+":"+pre(0).substring(12,14)
-          }else if(pre(0).length==8){
-            result=pre(0).substring(0,4)+"-"+pre(0).substring(4,6)+"-"+pre(0).substring(6,8)+" 00:00:00"
-          }else{
+        } else if (pre.length == 1) {
+          if (pre(0).length == 14) {
+            result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " " + pre(0).substring(8, 10) + ":" + pre(0).substring(10, 12) + ":" + pre(0).substring(12, 14)
+          } else if (pre(0).length == 8) {
+            result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " 00:00:00"
+          } else {
             logger.error("日期格式异常")
           }
-        }else {
+        } else {
           logger.error("日期格式异常")
         }
       }
@@ -141,113 +141,189 @@ object Dates {
 
   /**
     * 获取昨天的日期
+    *
     * @param date
     * @return
     */
   def getYesterday(date: String): String = {
     val date1 = parseDate(date).split("\\D")
-    var date2=date1(0)+"-"+date1(1)+"-"+(date1(2).toInt-1)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    var date2 = date1(0) + "-" + date1(1) + "-" + (date1(2).toInt - 1) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
     parseDate(date2)
   }
 
   /**
     * 获取明天的日期
+    *
     * @param date
     * @return
     */
   def getTomorrow(date: String): String = {
     val date1 = parseDate(date).split("\\D")
-    var date2=date1(0)+"-"+date1(1)+"-"+(date1(2).toInt+1)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    var date2 = date1(0) + "-" + date1(1) + "-" + (date1(2).toInt + 1) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
     parseDate(date2)
   }
 
   /**
     * 获取当月第一天的日期
+    *
     * @param date
     * @return
     */
-  def getMonthFirstDay(date:String):String={
-    val date1=parseDate(date).split("\\D")
-    date1(0)+"-"+date1(1)+"-01"+" "+date1(3)+":"+date1(4)+":"+date1(5)
+  def getMonthFirstDay(date: String): String = {
+    val date1 = parseDate(date).split("\\D")
+    date1(0) + "-" + date1(1) + "-01" + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
   }
 
   /**
     * 获取当年第一天的日期
+    *
     * @param date
     * @return
     */
-  def getYearFirstDay(date:String):String={
-    val date1=parseDate(date).split("\\D")
-    date1(0)+"-01-01"+" "+date1(3)+":"+date1(4)+":"+date1(5)
+  def getYearFirstDay(date: String): String = {
+    val date1 = parseDate(date).split("\\D")
+    date1(0) + "-01-01" + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
   }
 
   /**
     * 获取当月最后一天的日期
+    *
     * @param date
     * @return
     */
-  def getMonthLastDay(date:String):String={
-    val date1=parseDate(date)
-    val calendar=Calendar.getInstance()
+  def getMonthLastDay(date: String): String = {
+    val date1 = parseDate(date)
+    val calendar = Calendar.getInstance()
     calendar.setTime(defaultFormat.parse(date1))
-    val day=calendar.getActualMaximum(Calendar.DATE)
-    val date2=date1.split("\\D")
-    date2(0)+"-"+date2(1)+"-"+day+" "+date2(3)+":"+date2(4)+":"+date2(5)
+    val day = calendar.getActualMaximum(Calendar.DATE)
+    val date2 = date1.split("\\D")
+    date2(0) + "-" + date2(1) + "-" + day + " " + date2(3) + ":" + date2(4) + ":" + date2(5)
   }
 
   /**
     * 获取当年最后一天的日期
+    *
     * @param date
     * @return
     */
-  def getYearLastDay(date:String):String={
-    val date1=parseDate(date).split("\\D")
-    date1(0)+"-12-31 "+date1(3)+":"+date1(4)+":"+date1(5)
+  def getYearLastDay(date: String): String = {
+    val date1 = parseDate(date).split("\\D")
+    date1(0) + "-12-31 " + date1(3) + ":" + date1(4) + ":" + date1(5)
+  }
+
+  /**
+    * 获取日期所在周一
+    * @param date
+    * @return
+    */
+  def getMonday(date: String): String = {
+    val date1 = parseDate(date)
+    val calendar = Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    var d: Int = 0
+    if (calendar.get(Calendar.DAY_OF_WEEK) == 1) {
+      d = -6
+    } else {
+      d = 2 - calendar.get(Calendar.DAY_OF_WEEK)
+    }
+    calendar.add(Calendar.DAY_OF_WEEK, d)
+    defaultFormat.format(calendar.getTime)
+  }
+
+  /**
+    * 获取日期所在的周日
+    *
+    * @param date
+    * @return
+    */
+  def getSunday(date: String): String = {
+    val date1 = parseDate(date)
+    val calendar = Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    var d = 0
+    if (calendar.get(Calendar.DAY_OF_WEEK) == 1) {
+      d = -6
+    } else {
+      d = 2 - calendar.get(Calendar.DAY_OF_WEEK)
+    }
+    calendar.add(Calendar.DAY_OF_WEEK, d)
+    calendar.add(Calendar.DAY_OF_WEEK, 6)
+    defaultFormat.format(calendar.getTime)
+  }
+
+  /**
+    * 获取日期所在周的第一天
+    * @param date
+    * @return
+    */
+  def getWeekFirstDay(date: String): String = {
+    val date1 = parseDate(date)
+    val calendar = Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    calendar.set(Calendar.DAY_OF_WEEK,1)
+    defaultFormat.format(calendar.getTime)
+  }
+
+  /**
+    * 获取日期所在周的最后一天
+    * @param date
+    * @return
+    */
+  def getWeekLastDay(date: String): String = {
+    val date1 = parseDate(date)
+    val calendar = Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    calendar.set(Calendar.DAY_OF_WEEK,7)
+    defaultFormat.format(calendar.getTime)
   }
 
   /**
     * 比较两个日期相差的天数
+    *
     * @param date1
     * @param date2
     * @return
     */
-  def compare(date1:String,date2:String)={
-    (defaultFormat.parse(parseDate(date1)).getTime-defaultFormat.parse(parseDate(date2)).getTime).toDouble/MILLISECONDS_DAY
+  def compare(date1: String, date2: String) = {
+    (defaultFormat.parse(parseDate(date1)).getTime - defaultFormat.parse(parseDate(date2)).getTime).toDouble / MILLISECONDS_DAY
   }
 
   /**
     * 某日期加/减多少天的日期
+    *
     * @param date
     * @param day
     * @return
     */
-  def addDay(date: String,day:Int): String = {
+  def addDay(date: String, day: Int): String = {
     val date1 = parseDate(date).split("\\D")
-    var date2=date1(0)+"-"+date1(1)+"-"+(date1(2).toInt+day)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    var date2 = date1(0) + "-" + date1(1) + "-" + (date1(2).toInt + day) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
     parseDate(date2)
   }
 
   /**
     * 某日期加/减多少月的日期
+    *
     * @param date
     * @param month
     * @return
     */
-  def addMonth(date: String,month:Int): String = {
+  def addMonth(date: String, month: Int): String = {
     val date1 = parseDate(date).split("\\D")
-    var date2=date1(0)+"-"+(date1(1).toInt+month)+"-"+date1(2)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    var date2 = date1(0) + "-" + (date1(1).toInt + month) + "-" + date1(2) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
     parseDate(date2)
   }
 
   /**
     * 某日期加/减多少年的日期
+    *
     * @param date
     * @param month
     * @return
     */
-  def addYear(date: String,year:Int): String = {
+  def addYear(date: String, year: Int): String = {
     val date1 = parseDate(date).split("\\D")
-    var date2=(date1(0).toInt+year)+"-"+date1(1)+"-"+date1(2)+" "+date1(3)+":"+date1(4)+":"+date1(5)
+    var date2 = (date1(0).toInt + year) + "-" + date1(1) + "-" + date1(2) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
     parseDate(date2)
   }
 

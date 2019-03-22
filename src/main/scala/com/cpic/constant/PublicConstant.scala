@@ -13,7 +13,7 @@ object PublicConstant {
   val properties = new Properties()
   properties.load(new FileInputStream(path))
 
-  val idsrpt_home=properties.getProperty("IDSRPT_HOME")
+  val idsrpt_home=properties.getProperty("idsrpt_home")
   val userPrincipal = properties.getProperty("userPrincipal") //"sparkuser"
   val userKeytabPath = properties.getProperty("userKeytabPath") // "/opt/FIclient/user.keytab"
   val krb5ConfPath = properties.getProperty("krb5ConfPath") //"/opt/FIclient/KrbClient/kerberos/var/krb5kdc/krb5.conf"
