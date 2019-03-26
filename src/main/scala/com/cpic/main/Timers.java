@@ -40,7 +40,7 @@ public class Timers implements ServletContextListener {
                 int minutes = c.get(Calendar.MINUTE);
                 if (hour == 6 && minutes == 0) {
                     logger.info("每日任务已执行");
-                    ThreadUtil.exeShell1(PublicConstant.idsrpt_home() + File.separator + "crontab/exe_daily.sh");
+                    ThreadUtil.exeShell(PublicConstant.idsrpt_home() + File.separator + "crontab/exe_daily.sh");
                 }
             }
         }, sendDate, 24 * 60 * 60 * 1000);//设置24小时执行一次
@@ -62,7 +62,7 @@ public class Timers implements ServletContextListener {
                 int minutes = c.get(Calendar.MINUTE);
                 if (day == 1 && hour == 6 && minutes == 0) {
                     logger.info("每月定时任务已执行");
-                    ThreadUtil.exeShell1(PublicConstant.idsrpt_home() + File.separator + "crontab/exe_month.sh");
+                    ThreadUtil.exeShell(PublicConstant.idsrpt_home() + File.separator + "crontab/exe_month.sh");
                 }
             }
         }, sendDate, 24 * 60 * 60 * 1000);//24* 60* 60 * 1000
@@ -70,3 +70,4 @@ public class Timers implements ServletContextListener {
     }
 
 }
+

@@ -3,13 +3,11 @@ package com.cpic.utils
 import java.text.{SimpleDateFormat}
 import java.util.{Calendar, Date}
 
-import org.slf4j.LoggerFactory
 
 /**
   * 所有日期的输出格式必须是hive标准格式
   */
 object Dates {
-  val logger = LoggerFactory.getLogger(this.getClass)
   /**
     * 10位日期格式
     */
@@ -84,7 +82,7 @@ object Dates {
     var result = ""
     if (date.trim.isEmpty || date == null) {
       result = null
-      logger.warn(s"输入的${date}为空")
+      println(s"输入的${date}为空")
     }
     try {
       //带.的是有毫秒的
@@ -103,10 +101,10 @@ object Dates {
           } else if (pre(0).length == 8) {
             result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " 00:00:00"
           } else {
-            logger.error("日期格式异常")
+            println("日期格式异常")
           }
         } else {
-          logger.error("日期格式异常")
+          println("日期格式异常")
         }
       } else {
         val pre = date.trim.split("\\D")
@@ -121,20 +119,20 @@ object Dates {
           } else if (pre(0).length == 8) {
             result = pre(0).substring(0, 4) + "-" + pre(0).substring(4, 6) + "-" + pre(0).substring(6, 8) + " 00:00:00"
           } else {
-            logger.error("日期格式异常")
+            println("日期格式异常")
           }
         } else {
-          logger.error("日期格式异常")
+          println("日期格式异常")
         }
       }
     } catch {
-      case _: Exception => logger.error("日期格式异常")
+      case _: Exception => println("日期格式异常")
     }
     var date1: Date = null
     try {
       date1 = Dates.defaultFormat.parse(result)
     } catch {
-      case _: Exception => logger.error("ParseException")
+      case _: Exception => println("ParseException")
     }
     Dates.defaultFormat.format(date1)
   }
@@ -278,6 +276,75 @@ object Dates {
   }
 
   /**
+    * 获取季度数
+    * @param date
+    */
+  def getQuarter(date:String)={
+    val date1=parseDate(date)
+    val calendar = Calendar.getInstance()
+    calendar.setTime(defaultFormat.parse(date1))
+    val month=calendar.get(Calendar.MONTH)
+    var quarter=0
+    if (month >= 1 && month <= 3) {
+      quarter = 1
+    } else if (month >= 4 && month <= 6) {
+      quarter = 2
+    } else if (month >= 7 && month <= 9) {
+      quarter = 3
+    } else {
+      quarter = 4
+    }
+    (date1,quarter)
+  }
+
+  /**
+    * 获取某日期季度第一天
+    * @param date
+    * @return
+    */
+  def getQuarterFirstDay(date:String):String={
+    var result=""
+    val quarter= getQuarter(date)._2
+    val pre=getQuarter(date)._1.substring(0,5)
+    if(quarter==1){
+      result= pre+"01-01"
+    }
+    if(quarter==2){
+      result= pre+"04-01"
+    }
+    if(quarter==3){
+      result= pre+"07-01"
+    }
+    if(quarter==4){
+      result= pre+"10-01"
+    }
+    result
+  }
+
+  /**
+    * 获取某日期季度最后一天
+    * @param date
+    * @return
+    */
+  def getQuarterLastDay(date:String):String={
+    var result=""
+    val quarter= getQuarter(date)._2
+    val pre=getQuarter(date)._1.substring(0,5)
+    if(quarter==1){
+      result= pre+"03-31"
+    }
+    if(quarter==2){
+      result= pre+"06-30"
+    }
+    if(quarter==3){
+      result= pre+"09-30"
+    }
+    if(quarter==4){
+      result= pre+"12-31"
+    }
+    result
+  }
+  /**
     * 比较两个日期相差的天数
     *
     * @param date1
@@ -324,6 +391,45 @@ object Dates {
   def addYear(date: String, year: Int): String = {
     val date1 = parseDate(date).split("\\D")
     var date2 = (date1(0).toInt + year) + "-" + date1(1) + "-" + date1(2) + " " + date1(3) + ":" + date1(4) + ":" + date1(5)
+    parseDate(date2)
+  }
+
+  /**
+    * 某日期加/减多少小时的日期
+    *
+    * @param date
+    * @param month
+    * @return
+    */
+    def addHour(date: String, hour: Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2 = date1(0) + "-" + date1(1) + "-" + date1(2) + " " + (date1(3).toInt + hour) + ":" + date1(4) + ":" + date1(5)
+    parseDate(date2)
+  }
+
+  /**
+    * 某日期加/减多少分钟的日期
+    *
+    * @param date
+    * @param month
+    * @return
+    */
+  def addMinute(date: String, minite: Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2 = date1(0) + "-" + date1(1) + "-" + date1(2) + " " + date1(3) + ":" + (date1(4).toInt + minite) + ":" + date1(5)
+    parseDate(date2)
+  }
+
+  /**
+    * 某日期加/减多少分钟的日期
+    *
+    * @param date
+    * @param month
+    * @return
+    */
+  def addSecond(date: String, second: Int): String = {
+    val date1 = parseDate(date).split("\\D")
+    var date2 = date1(0) + "-" + date1(1) + "-" + date1(2) + " " + date1(3) + ":" + date1(4) + ":" + (date1(5).toInt + second)
     parseDate(date2)
   }
 

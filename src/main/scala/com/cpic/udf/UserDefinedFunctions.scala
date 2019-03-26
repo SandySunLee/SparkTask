@@ -1,10 +1,9 @@
 package com.cpic.udf
 
-import java.text.SimpleDateFormat
-import java.util.TimeZone
+import java.time.ZoneId
+import java.util.{Calendar, Date, TimeZone}
 
-import com.cpic.utils.Dates
-import org.slf4j.LoggerFactory
+import com.cpic.utils.{DateUtils, Dates}
 //import org.apache.spark.sql.SQLContext
 //import org.apache.spark.sql.hive.HiveContext
 //import org.apache.spark.{SparkConf, SparkContext}
@@ -56,6 +55,22 @@ object UserDefinedFunctions {
 
   def addYear(date: String, year: Int): String = {
     Dates.addYear(date, year)
+  }
+
+  def interval(date: String, value:String,set:String)={
+    var result=""
+    val set1=set.trim.toUpperCase
+    if(set1.equals("YEAR")) result=Dates.addYear(date,value.toInt)
+    if(set1.equals("MONTH")) result=Dates.addYear(date,value.toInt)
+    if(set1.equals("DAY")) result=Dates.addYear(date,value.toInt)
+    if(set1.equals("HOUR")) result=Dates.addYear(date,value.toInt)
+    if(set1.equals("MINUTE")) result=Dates.addYear(date,value.toInt)
+    if(set1.equals("SECOND")) result=Dates.addYear(date,value.toInt)
+    if(set1.contains("TO")){
+      val split=set1.split("(\\s)+TO(\\s)+")
+    }
+
+    result
   }
 
   /**
@@ -156,11 +171,35 @@ object UserDefinedFunctions {
     */
   def trunc(date:String,format:String):String={
     var result:String=""
-    if(format.toUpperCase.equals("YY")) result=Dates.getYearFirstDay(date).substring(0,10)
-    if(format.toUpperCase.equals("MM")) result=Dates.getMonthFirstDay(date).substring(0,10)
-    if(format.toUpperCase.equals("DD")) result=Dates.parseDate(date).substring(0,10)
-    //返回所在周的第一天
-    if(format.toUpperCase.equals("D")) result=Dates.getWeekFirstDay(date).substring(0,10)
+    val format1=format.trim.toUpperCase
+    //返回最近第一天
+    if(format1.equals("YY") || format1.equals("YEAR") || format1.equals("SYEAR") || format1.equals("Y") || format1.equals("YYY") || format1.equals("YYYY") ) result=Dates.getYearFirstDay(date).substring(0,10)
+    //返回最近第一天
+    if(format1.equals("MM") || format1.equals("MON") || format1.equals("MONTH") || format1.equals("RM") ) result=Dates.getMonthFirstDay(date).substring(0,10)
+    //返回最近0点日期
+    if(format1.equals("DD") || format1.equals("J")) result=Dates.parseDate(date).substring(0,10)
+    //返回最近季度日期
+    if(format1.equals("Q")) result=Dates.getQuarterFirstDay(date).substring(0,10)
+    //返回最近周日日期
+    if(format1.equals("D") || format1.equals("DY") || format1.equals("DAY") ) result=Dates.getWeekFirstDay(date).substring(0,10)
+    result
+  }
+
+  /**
+    * 拉取某个field的数据
+    * @param date
+    * @param format
+    * @return
+    */
+  def extract(date:String,field:String):String={
+    val date1=Dates.parseDate(date)
+    var result=""
+    if(field.trim.toUpperCase.equals("YEAR")) result= date1.substring(0,4)
+    if(field.trim.toUpperCase.equals("MONTH")) result= date1.substring(5,7)
+    if(field.trim.toUpperCase.equals("DAY")) result= date1.substring(8,10)
+    if(field.trim.toUpperCase.equals("HOUR")) result= date1.substring(11,13)
+    if(field.trim.toUpperCase.equals("MINUTE")) result= date1.substring(14,16)
+    if(field.trim.toUpperCase.equals("SECOND")) result= date1.substring(17,19)
     result
   }
 
@@ -259,28 +298,50 @@ object UserDefinedFunctions {
 
   /**
     * 转换时区
+    * NEW_TIME("2019-03-22 20:05:10","EST","GMT+8")
+    * 大西洋标准时间：AST或ADT
+    * 阿拉斯加_夏威夷时间：HST或HDT
+    * 英国夏令时：BST或BDT
+    * 美国山区时间：MST或MDT
+    * 美国中央时区：CST或CDT
+    * 新大陆标准时间：NST
+    * 美国东部时间：EST或EDT
+    * 太平洋标准时间：PST或PDT
+    * 格林威治标准时间：GMT
+    * Yukou标准时间：YST或YDT
     * @param date
     * @param the
     * @param that
     * @return
     */
-  def NEW_TIME(date:String,the:String,that:String):String={
-    //根据入参原时区id，获取对应的timezone对象
-    val sourceTimeZone = TimeZone.getTimeZone("GMT"+the)
-    //设置SimpleDateFormat时区为原时区（否则是本地默认时区），目的:用来将字符串sourceTime转化成原时区对应的date对象
-    Dates.defaultFormat.setTimeZone(sourceTimeZone)
-    //将字符串date转化成原时区对应的Date对象
-    val sourceDate = Dates.defaultFormat.parse(date)
-
-    //开始转化时区：根据目标时区id设置目标TimeZone
-    val targetTimeZone = TimeZone.getTimeZone("GMT"+that)
-    //设置SimpleDateFormat时区为目标时区（否则是本地默认时区），目的:用来将字符串sourceTime转化成目标时区对应的date对象
-    Dates.defaultFormat.setTimeZone(targetTimeZone)
-    //得到目标时间字符串
-    val targetTime = Dates.defaultFormat.format(sourceDate)
-    val date1 = Dates.defaultFormat.parse(targetTime)
-    Dates.defaultFormat.format(date1)
+  def new_time(date:String,the:String,that:String):String={
+    Dates.defaultFormat.format(new Date(Dates.defaultFormat.parse(Dates.parseDate(date)).getTime-TimeZone.getTimeZone(the).getRawOffset()+TimeZone.getTimeZone(that).getRawOffset()))
   }
+
+  /**
+    * 获取所在的时区
+    * @param date
+    * @return
+    */
+  def dbtimezone:String={
+    ZoneId.systemDefault.getId
+//    val cal = Calendar.getInstance()
+//    val offset = cal.get(Calendar.ZONE_OFFSET)
+//    cal.add(Calendar.MILLISECOND, -offset)
+//    val timeStampUTC = cal.getTimeInMillis()
+//    val timeStamp = System.currentTimeMillis()
+//    ((timeStamp - timeStampUTC) / (1000 * 3600)).toString
+  }
+
+  /**
+    * 获取所在时区
+    * @return
+    */
+  def sessiontimezone:String={
+    DateUtils.getZone
+  }
+
+
 
   //注册demo
   //  val conf=new SparkConf()

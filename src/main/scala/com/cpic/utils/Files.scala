@@ -10,12 +10,15 @@ import scala.io.Source
 
 
 
+/**
+  * 文件操作工具类
+  */
 object Files {
-  val logger = LoggerFactory.getLogger(this.getClass)
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
   /**
     * 修改文件全路径名
-    *
+    * a.txt ->a20190326103747.txt
     * @param file
     */
   def fixFileName(oldFile: String) = {
@@ -43,17 +46,22 @@ object Files {
 
   /**
     * 将全路径源文件拷贝到制定目的地
-    *
+    * 文件名不变
     * @param sourceFile
     * @param desFile
     */
   def copyFile(sourceFile: String, desFile: String) = {
-    val writer = new PrintWriter(new File(desFile + File.separator + getFileName(sourceFile)), "UTF-8")
-    val file = Source.fromFile(sourceFile)
-    for (i <- file.getLines()) {
-      writer.println(i)
+    try{
+      val writer = new PrintWriter(new File(desFile + File.separator + getFileName(sourceFile)), "UTF-8")
+      val file = Source.fromFile(sourceFile)
+      for (i <- file.getLines()) {
+        writer.println(i)
+      }
+      writer.close()
+    }catch {
+      case _:Exception=>logger.error("IOException")
     }
-    writer.close()
+
   }
 
   /**
@@ -63,7 +71,11 @@ object Files {
     * @return
     */
   def chmodFile(file: String) = {
-    (s"chmod -R 755 ${file}").!!
+    try {
+      ThreadUtil.chmod(file)
+    }catch {
+      case _:Exception=>logger.error("IOException")
+    }
   }
 
   /**
@@ -97,4 +109,3 @@ object Files {
   }
 
 }
-

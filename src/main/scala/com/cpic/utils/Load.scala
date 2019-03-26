@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.hive.HiveContext
 
-object Load extends App{
+object Load {
   /**
     * 传入需要序列化的类
     * @param classes
@@ -68,10 +68,10 @@ object Load extends App{
   def loadSC(conf:SparkConf):SQLContext={
     //SQLContext功能
     val sqlContext=new SQLContext(loadSc(conf))
-//    //缓存表大小
-//    sqlContext.setConf("spark.sql.inMemoryColumnarStorage.batchSize","20000")
-//    //广播阈值
-//    sqlContext.setConf("spark.sql.autoBroadcastJoinThreshold","20971520")
+    //    //缓存表大小
+    //    sqlContext.setConf("spark.sql.inMemoryColumnarStorage.batchSize","20000")
+    //    //广播阈值
+    //    sqlContext.setConf("spark.sql.autoBroadcastJoinThreshold","20971520")
     sqlContext
   }
 

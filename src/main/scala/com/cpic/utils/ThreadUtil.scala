@@ -1,7 +1,8 @@
 package com.cpic.utils
 import sys.process._
+import org.slf4j.LoggerFactory
 object ThreadUtil {
-
+  private val logger = LoggerFactory.getLogger(this.getClass)
   /**
     * 判断进程是否存在
     * @param thread
@@ -17,17 +18,27 @@ object ThreadUtil {
     * @param command
     * @return
     */
-  def exeShell(command:String):String={
-    (command).!!
+  def exeShell(command:ProcessBuilder):String={
+    var result=""
+    try {
+      command.!!
+    }catch {
+      case _:Exception => logger.error("ShellException")
+    }
+    result
   }
 
   /**
-    * 执行shell命令
+    * 执行shell脚本
     * @param command
     * @return
     */
-  def exeShell1(command:String):Int={
-    (command).!
+  def exeShell(command:String)={
+    try {
+      (command).!
+    }catch {
+      case _:Exception => logger.error("ShellException")
+    }
   }
 
   /**
@@ -36,7 +47,11 @@ object ThreadUtil {
     * @return
     */
   def chmod(file:String)={
-    (s"chmod -R 755 ${file}").!
+    try {
+      (s"chmod -R 755 ${file}").!
+    }catch {
+      case _:Exception => logger.error("ThreadException")
+    }
   }
 
 }

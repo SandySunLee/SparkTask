@@ -15,9 +15,9 @@ import scala.util.control.Breaks._
 
 
 object Test extends App {
+  val set1="hour to second".trim.toUpperCase
+  println(set1.split("(\\s)+TO(\\s)+").toBuffer)
 //    replaceAll("\\w+","x")
-  println(UserDefinedFunctions.NEW_TIME("2019-03-22 20:05:10","UTC","ADT"))
-  println(DateUtils.timeConvert("2019-03-22 20:05:10","UTC","ADT",""))
 
   //  println(UserDefinedFunctions.initcap("a aBc ab")     +"--------------")
   //  val logger = LoggerFactory.getLogger(this.getClass)
@@ -26,7 +26,7 @@ object Test extends App {
   //  val num= number.toString.split("\\.")
   //  val result=num(0).substring(0,num(0).length+decimals)+"0"*decimals.abs
   //  println(result)
-  //  println(UserDefinedFunctions.trunc(12345.6789,0))
+//    println(UserDefinedFunctions.trunc(12345.6789,0))
   //  println(UserDefinedFunctions.trunc(12345.6789,1))
   //  println(UserDefinedFunctions.trunc(12345.6789,2))
   //  println(UserDefinedFunctions.trunc(12345.6789,3))

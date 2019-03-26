@@ -9,6 +9,8 @@ import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.jdbc.{JdbcDialect, JdbcDialects, JdbcType}
 import org.apache.spark.sql.types._
 import org.apache.spark.{SparkConf, SparkContext}
+
+
 /**
   * 将hive日志表实时刷回oracle
   */
@@ -51,7 +53,6 @@ object RewriteLog extends App {
 
   //Read results from Hive can make the task efficient
   val df2Oracle = sqlContext.sql("select * from ods_incom_biaoma")
-
   //overwrite JdbcDialect fitting for Oracle
   val OracleDialect = new JdbcDialect {
 
